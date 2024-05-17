@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+{% load bootstrap4 %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>{% block title %}{% endblock %}</title>
+    {% bootstrap_css %}
+    {% bootstrap_javascript jquery='slim' %}
+</head>
+<body class="container-fluid">
+<header class="mb-4">
+    <h1 class="display-1 text-center">Привет, Света!</h1>
+</header>
+<div class="row">
+    <ul class="col nav justify-content-end border">
+        <li class="nav-item"><a class="nav-link btn-primary mr-3" href="{% url 'index' %}">Главная</a></li>
+        {% comment %}
+            {% if user.is_authenticated %}
+            <li class="nav-item">
+                <form method="post" action="{% url 'logout' %}">
+                    {% csrf_token %}
+                    <button class="nav-link btn-primary mr-3" type="submit" style="height: 40px;">Выход</button>
+                </form>
+            </li>
+            <li class="nav-item"><a class="nav-link btn-primary mr-3" href="{% url 'profile' %}">Профиль</a></li>
+            {% else %}
+            <li class="nav-item"><a class="nav-link btn-primary mr-3" href="{% url 'registration' %}">Регистрация</a></li>
+            <li class="nav-item"><a class="nav-link btn-primary mr-3" href="{% url 'login' %}">Вход</a></li>
+            {% end if %}
+        {% endcomment %}
+    </ul>
+</div>
+<section class="col border py-2">
+    {% block content %}
+    {% endblock %}
+</section>
+<footer class="mt-3">
+    <p class="text-right font-italic">&copy; Pheia</p>
+</footer>
+</body>
+</html>

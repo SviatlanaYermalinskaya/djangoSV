@@ -1,0 +1,24 @@
+{% extends 'layout/base.html' %}
+
+{% block title %} Товар {% endblock %}
+{% block content %}
+<div>
+    <div style="display: inline;">
+        {% for image in product.images.all %}
+        <img src="{{ image.image.url }}" alt="Изображение товара" style="height: 300px; margin-left: 20px">
+        {% endfor %}
+    </div>
+    <p>{{ product.title }}</p>
+    <p>{{ product.get_gender_display }}</p>
+    <p>Цена: {{ product.price }}</p>
+    <p>Размер: {{ product.get_size_display }}</p>
+    <p>Количество: {{ product.quantity }}</p>
+    <p>Описание: {{ product.product_description }}</p>
+    <p>Описание модели: {{ product.model_description }}</p>
+    <p>Артикул: {{ product.vendor_code }}</p>
+    <p>Категория: {{ product.category }}</p>
+    <p>Дата создания: {{ product.created }}</p>
+    <a href="{% url 'product_delete' pk=product.id %}">Удалить этот товар</a>
+
+</div>
+{% endblock %}
