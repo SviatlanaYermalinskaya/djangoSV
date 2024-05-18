@@ -1,6 +1,6 @@
 {% extends 'layout/base.html' %}
 
-{% block title %} Товар {% endblock %}
+{% block title %}Товар{% endblock %}
 {% block content %}
 <div>
     <div style="display: inline;">
@@ -18,7 +18,8 @@
     <p>Артикул: {{ product.vendor_code }}</p>
     <p>Категория: {{ product.category }}</p>
     <p>Дата создания: {{ product.created }}</p>
-    <a href="{% url 'product_delete' pk=product.id %}">Удалить этот товар</a>
+    <a href="{% url 'product_delete' pk=product.id %}" class="btn btn-primary" style="margin-left: 10px">Удалить товар</a>
+    <a href="{% url 'product_update' pk=product.id %}" class="btn btn-primary" style="margin-left: 10px">Изменить товар</a>
 
 </div>
 {% endblock %}

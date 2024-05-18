@@ -1,0 +1,14 @@
+{% extends 'layout/base.html' %}
+{% load bootstrap4 %}
+
+{% block title %}Удаление товара{% endblock %}
+
+{% block content %}
+    <h2>Удаление товара</h2>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <p>Вы уверены, что хотите удалить этот товар?</p>
+        {% bootstrap_form form layout='horizontal' %}
+        {% buttons submit='Подтвердить' %}{% endbuttons %}
+    </form>
+{% endblock %}

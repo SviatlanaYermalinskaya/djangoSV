@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 {% load bootstrap4 %}
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -17,6 +17,7 @@
     <ul class="col nav justify-content-end border">
         <li class="nav-item"><a class="nav-link btn-primary mr-3" href="{% url 'index' %}">Главная</a></li>
         <li class="nav-item"><a class="nav-link btn-primary mr-3" href="{% url 'products_list' %}">Все товары</a></li>
+        <li class="nav-item"><a class="nav-link btn-primary mr-3" href="{% url 'product_create' %}">Создать товар</a></li>
         {% comment %}
             {% if user.is_authenticated %}
             <li class="nav-item">
