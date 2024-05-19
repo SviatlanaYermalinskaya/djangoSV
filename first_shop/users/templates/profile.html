@@ -1,0 +1,38 @@
+{% extends 'layout/base.html' %}
+
+
+{% block title %}Создание товара{% endblock %}
+
+{% block content %}
+    <h2>Профиль пользователя {{ request.user.username }}</h2>
+    <p>Здравствуйте, {{ request.user.first_name|capfirst }} {{ request.user.last_name|capfirst }}!</p>
+    {% if request.user.avatar %}
+        <p><img src="{{ request.user.avatar.url }}" alt="Аватар" style="width: 100px;"></p>
+    {% endif %}
+    <p>Количество ваших бонусов: {{ request.user.bonuses }}</p>
+    <p>Ваш реферальный код: {{ request.user.referral_code }}</p>
+
+    {% if orders_list %}
+        <h2>Ваши заказы:</h2>
+        {% for order in orders_list %}
+            <br>
+            <p>ID заказа: {{ order.id }}</p>
+            <p>Дата и время создания заказа: {{ order.created }}</p>
+            <p>Статус заказа: {{ order.get_status_display }}</p>
+            <p>Заказанные товары:</p>
+            <div class="row">
+            {% for product in order.products.all %}
+                <section class="col border py-2">
+                <div>
+                    <p><img src="{{ product.images.all.0.image.url }}" alt="Изображение товара" style="height: 300px; marging-left: 10px;"></p>
+                    <p>Товар: {{ product.title }}</p>
+                    <p>Цена: {{ product.price }}</p>
+                </div>
+                </section>
+            {% endfor %}
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>В данный момент у вас нет заказов!</p>
+    {% endif %}
+{% endblock %}
