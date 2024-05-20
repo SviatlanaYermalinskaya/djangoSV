@@ -80,22 +80,26 @@ class ProductDeleteView(DeleteView):
 def order_create(request, pk):
     if request.method == 'POST':
         product_instance = get_object_or_404(Product, id=pk)
-        order_new = Order.objects.create(
-        name=request.user.first_name,
-        surname=request.user.last_name,
-        patronymic=request.user.patronymic,
-        email=request.user.email,
-        phone=request.user.phone,
-        region=request.user.region,
-        city=request.user.city,
-        street_name=request.user.street_name,
-        house_number=request.user.house_number,
-        entrance=request.user.entrance,
-        floor=request.user.floor,
-        apartment=request.user.apartment,
-        post_code=request.user.post_code,
-        customer=request.user,
-        )
-        order_new.products.add(product_instance)
+        try:
+            order_instance = get_object_or_404(Order, customer=request.user, status='Вп')
+            order_instance.products.add(product_instance)
+        except:
+            order_new = Order.objects.create(
+            name=request.user.first_name,
+            surname=request.user.last_name,
+            patronymic=request.user.patronymic,
+            email=request.user.email,
+            phone=request.user.phone,
+            region=request.user.region,
+            city=request.user.city,
+            street_name=request.user.street_name,
+            house_number=request.user.house_number,
+            entrance=request.user.entrance,
+            floor=request.user.floor,
+            apartment=request.user.apartment,
+            post_code=request.user.post_code,
+            customer=request.user,
+            )
+            order_new.products.add(product_instance)
 
     return redirect('profile')

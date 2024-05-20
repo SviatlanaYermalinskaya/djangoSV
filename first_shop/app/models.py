@@ -48,6 +48,7 @@ class ProductImage(models.Model):
 
 class Order(models.Model):
     STATUS_CHOICES = (
+        ('Вп', 'В процессе'),
         ('О', 'Оплачен'),
         ('С', 'Собирается'),
         ('От', 'Отправлен'),
