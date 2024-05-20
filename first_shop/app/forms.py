@@ -1,6 +1,7 @@
 from django import forms
+from django.forms import inlineformset_factory
 
-from .models import Product
+from .models import Product, ProductImage
 
 
 class ProductForm(forms.ModelForm):
@@ -11,4 +12,4 @@ class ProductForm(forms.ModelForm):
             'vendor_code', 'category', 'gender')
 
 
-
+ProductImagesFormSet = inlineformset_factory(Product, ProductImage, fields='__all__')

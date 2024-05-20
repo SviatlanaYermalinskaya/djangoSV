@@ -1,9 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, DetailView, UpdateView, DeleteView
 
-from .forms import ProductForm
+from .forms import ProductForm, ProductImagesFormSet
 from .models import Product
+
 
 
 def index(request):
@@ -24,11 +25,28 @@ class ProductDetailView(DetailView):
     context_object_name = 'product'
 
 
-class ProductCreateView(CreateView):
-    model = Product
-    template_name = 'product_create.html'
-    form_class = ProductForm
-    success_url = reverse_lazy('products_list')
+# class ProductCreateView(CreateView):
+#     model = Product
+#     template_name = 'product_create.html'
+#     form_class = ProductForm
+#     success_url = reverse_lazy('products_list')
+
+
+
+
+def product_create(request):
+    if request.method == 'POST':
+        form = ProductForm(request.POST)
+        if form.is_valid():
+            instance = form.save()
+            formset = ProductImagesFormSet(request.POST, request.FILES, instance=instance)
+            if formset.is_valid():
+                formset.save()
+                return redirect('products_list')
+    form = ProductForm()
+    formset = ProductImagesFormSet()
+    context = {'form': form, 'formset': formset}
+    return  render(request, 'product_create.html', context)
 
 
 class ProductUpdateView(UpdateView):
@@ -36,7 +54,6 @@ class ProductUpdateView(UpdateView):
     template_name = 'product_update.html'
     form_class = ProductForm
     success_url = reverse_lazy('products_list')
-
 
 
 class ProductDeleteView(DeleteView):
