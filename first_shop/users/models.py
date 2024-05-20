@@ -16,6 +16,7 @@ class CustomUser(AbstractUser):
             "unique": _("A user with that username already exists."),
         },
     )
+    patronymic = models.CharField(_("patronymic"), max_length=150, blank=True)
     phoneNumberRegex = RegexValidator(regex=r'^((\+\d{,4})[\- ]?)?(\(?\d{2,3}\)?[\- ]?)?[\d\- ]{7,10}$')
     phone = models.CharField(
         validators=[phoneNumberRegex],

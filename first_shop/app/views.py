@@ -1,10 +1,9 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, UpdateView, DeleteView
 
 from .forms import ProductForm, ProductImagesFormSet
-from .models import Product
-
+from .models import Product, Order
 
 
 def index(request):
@@ -32,6 +31,10 @@ class ProductListView(ListView):
             return products.order_by('-created')
 
 
+# def product_instance(request, pk):
+#     product = get_object_or_404(Product, id=pk)
+#     context = {'product': product}
+#     return render(request, 'product_instance.html', context)
 class ProductDetailView(DetailView):
     model = Product
     template_name = 'product_instance.html'
@@ -43,10 +46,6 @@ class ProductDetailView(DetailView):
 #     template_name = 'product_create.html'
 #     form_class = ProductForm
 #     success_url = reverse_lazy('products_list')
-
-
-
-
 def product_create(request):
     if request.method == 'POST':
         form = ProductForm(request.POST)
@@ -69,19 +68,34 @@ class ProductUpdateView(UpdateView):
     success_url = reverse_lazy('products_list')
 
 
+# def product_delete(request, pk):
+#     Product.objects.get(id=pk).delete()
+#     return redirect('index')
 class ProductDeleteView(DeleteView):
     model = Product
     template_name = 'product_delete.html'
     success_url = reverse_lazy('products_list')
 
 
-# def product_delete(request, pk):
-#     Product.objects.get(id=pk).delete()
-#     return redirect('index')
+def order_create(request, pk):
+    if request.method == 'POST':
+        product_instance = get_object_or_404(Product, id=pk)
+        order_new = Order.objects.create(
+        name=request.user.first_name,
+        surname=request.user.last_name,
+        patronymic=request.user.patronymic,
+        email=request.user.email,
+        phone=request.user.phone,
+        region=request.user.region,
+        city=request.user.city,
+        street_name=request.user.street_name,
+        house_number=request.user.house_number,
+        entrance=request.user.entrance,
+        floor=request.user.floor,
+        apartment=request.user.apartment,
+        post_code=request.user.post_code,
+        customer=request.user,
+        )
+        order_new.products.add(product_instance)
 
-
-# def product_instance(request, pk):
-#     product = get_object_or_404(Product, id=pk)
-#     context = {'product': product}
-#     return render(request, 'product_instance.html', context)
-
+    return redirect('profile')
