@@ -14,7 +14,7 @@ class ProfileView(ListView, LoginRequiredMixin):
     context_object_name = 'orders_list'
 
     def get_queryset(self):
-        return Order.objects.filter(customer=self.request.user)
+        return Order.objects.filter(customer=self.request.user).order_by('-created')
 
 
 class RegistrationView(CreateView):
