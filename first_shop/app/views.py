@@ -15,8 +15,21 @@ class ProductListView(ListView):
     model = Product
     template_name = 'products_list.html'
     context_object_name = 'products_list'
-    ordering = '-created'
-    paginate_by = 2
+    #ordering = '-created' # filtered by created datetime DESC
+    paginate_by = 5
+
+    def get_queryset(self):
+        products = Product.objects.all()
+        if self.request.GET.get('filter_type') is None or self.request.GET.get('filter_type')[0] == 'N':
+            return products
+        elif self.request.GET.get('filter_type')[0] == 'B':
+            return products.order_by('price')
+        elif self.request.GET.get('filter_type')[0] == 'Y':
+            return products.order_by('-price')
+        elif self.request.GET.get('filter_type')[0] == 'C':
+            return products.order_by('created')
+        elif self.request.GET.get('filter_type')[0] == 'H':
+            return products.order_by('-created')
 
 
 class ProductDetailView(DetailView):

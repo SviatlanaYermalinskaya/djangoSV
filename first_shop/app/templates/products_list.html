@@ -3,6 +3,16 @@
 {% block title %}Товары{% endblock %}
 {% block content %}
     {% if products_list %}
+        <form method="GET" style="margin: 15px 15px 15px 0px">
+            <select class="form-select" name="filter_type">
+                <option value="N">Без сортировки</option>
+                <option value="B">По возрастанию цены</option>
+                <option value="Y">По убыванию цены</option>
+                <option value="C">Старое</option>
+                <option value="H">Новое</option>
+            </select>
+            <button type="submit" style="margin-left: 5px" class="btn btn-primary">Отсортировать</button>
+        </form>
         <div class="row">
         {% for product in products_list %}
             <a href="{% url 'product_instance' pk=product.id %}" style="height: 500px; margin-left: 10px">
