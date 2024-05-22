@@ -12,6 +12,10 @@ class Category(models.Model):
     def __str__(self):
         return self.title
 
+    class Meta:
+        verbose_name = 'Категория'
+        verbose_name_plural = 'Категории'
+
 
 class Product(models.Model):
     GENDER_CHOICES = (
@@ -39,6 +43,10 @@ class Product(models.Model):
 
     def __str__(self):
         return self.title
+
+    class Meta:
+        verbose_name = 'Товар'
+        verbose_name_plural = 'Товары'
 
 
 class ProductImage(models.Model):
@@ -78,6 +86,10 @@ class Order(models.Model):
 
     def __str__(self):
         return f'{self.name} {self.surname}'
+
+    class Meta:
+        verbose_name = 'Заказ'
+        verbose_name_plural = 'Заказы'
 
 
 
