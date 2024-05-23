@@ -11,7 +11,7 @@
                 <option value="C">Старое</option>
                 <option value="H">Новое</option>
             </select>
-            <button type="submit" style="margin-left: 5px" class="btn btn-primary">Отсортировать</button>
+            <button type="submit" style="margin-left: 5px" class="btn btn-primary">Отфильтровать</button>
         </form>
         <div class="row">
         {% for product in products_list %}
@@ -23,23 +23,37 @@
             </a>
         {% endfor %}
         </div>
-
-        <div class="pagination">
-            <span class="page-links">
-                {% if page_obj.has_previous %}
-                    <a href="?page=1">&laquo; Первая</a>
-                    <a href="?page={{ page_obj.previous_page_number }}">Предыдущая</a>
-                {% endif %}
-                <span class="page-current">
-                    Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}.
+        {% if page_obj.has_other_pages %}
+            <div class="pagination">
+                <span class="page-links">
+                    {% if 'filter_type' in request.get_full_path %}
+                        {% if page_obj.has_previous %}
+                            <a href="{{ request.get_full_path }}&page=1">&laquo; Первая</a>
+                            <a href="{{ request.get_full_path }}&page={{ page_obj.previous_page_number }}">Предыдущая</a>
+                        {% endif %}
+                        <span class="page-current">
+                            Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}.
+                        </span>
+                        {% if page_obj.has_next %}
+                            <a href="{{ request.get_full_path }}&page={{ page_obj.next_page_number }}">Следующая</a>
+                            <a href="{{ request.get_full_path }}&page={{ page_obj.paginator.num_pages }}">Последняя &raquo;</a>
+                        {% endif %}
+                    {% else %}
+                        {% if page_obj.has_previous %}
+                            <a href="?page=1">&laquo; Первая</a>
+                            <a href="?page={{ page_obj.previous_page_number }}">Предыдущая</a>
+                        {% endif %}
+                        <span class="page-current">
+                            Страница {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}.
+                        </span>
+                        {% if page_obj.has_next %}
+                            <a href="?page={{ page_obj.next_page_number }}">Следующая</a>
+                            <a href="?page={{ page_obj.paginator.num_pages }}">Последняя &raquo;</a>
+                        {% endif %}
+                    {% endif %}
                 </span>
-                {% if page_obj.has_next %}
-                    <a href="?page={{ page_obj.next_page_number }}">Следующая</a>
-                    <a href="?page={{ page_obj.paginator.num_pages }}">Последняя &raquo;</a>
-                {% endif %}
-            </span>
-        </div>
-
+            </div>
+        {% endif %}
     {% else %}
     <p>В данный момент в магазине нет товаров, загляните позже!</p>
     {% endif %}

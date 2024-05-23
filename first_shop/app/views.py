@@ -4,6 +4,7 @@ from django.views.generic import ListView, DetailView, UpdateView, DeleteView
 
 from .forms import ProductForm, ProductImagesFormSet
 from .models import Product, Order
+import re
 
 
 def index(request):
@@ -15,7 +16,7 @@ class ProductListView(ListView):
     template_name = 'products_list.html'
     context_object_name = 'products_list'
     #ordering = '-created' # filtered by created datetime DESC
-    paginate_by = 5
+    paginate_by = 2  # Need to save filter_type state for right pagination
 
     def get_queryset(self):
         products = Product.objects.all()
@@ -29,6 +30,11 @@ class ProductListView(ListView):
             return products.order_by('created')
         elif self.request.GET.get('filter_type')[0] == 'H':
             return products.order_by('-created')
+
+    def setup(self, request, *args, **kwargs) -> None:
+        request.GET.get("page")
+        request.META["QUERY_STRING"] = re.sub("(&|\?)page=(.)*", "", request.META.get("QUERY_STRING", ""))
+        return super().setup(request, *args, **kwargs)
 
 
 # def product_instance(request, pk):
