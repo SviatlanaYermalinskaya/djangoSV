@@ -1,4 +1,5 @@
-Base functionality for online shop creation on Django with Bootstrap4 on russian language. 
+Base functionality for online shop creation on Django with Bootstrap4 on russian language.
+See on https://pheia.pythonanywhere.com/ until August 22, 2024
 
 Clone project:
 > git clone https://github.com/SviatlanaYermalinskaya/djangoSV.git
