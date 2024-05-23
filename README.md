@@ -40,3 +40,39 @@ Create superuser:
 
 Run project:
 > python manage.py runserver
+
+SOME USEFUL CHANGES:
+
+* Default sqlite3 database instead of postgres in settings.py:
+
+        DATABASES = {
+            'default': {
+                'ENGINE': 'django.db.backends.sqlite3',
+                'NAME': os.path.join(BASE_DIR, 'firs_shop.data'),
+            }
+        }
+
+* Add all allowed hosts or you domain in settings.py for hosting setup
+
+  >ALLOWED_HOSTS = ['*']
+
+  or
+  
+    >ALLOWED_HOSTS = ['Pheia.pythonanywhere.com']
+
+* Change DEBUG = False to prevent all errors info 
+* For hosting setup make directories 'media' and 'static' 
+in django project directory '/svDjango/first_shop/' and update 
+settings.py with:
+
+   >STATIC_URL = 'static/'
+   >
+   >STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+   >
+   >MEDIA_URL = '/media/'
+   >
+   >MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+  then collect static via command:
+
+  > python manage.py collectstatic
