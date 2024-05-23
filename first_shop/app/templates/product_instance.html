@@ -20,10 +20,12 @@
     <p>Дата создания: {{ product.created }}</p>
     <a href="{% url 'product_delete' pk=product.id %}" class="btn btn-primary" style="margin-left: 10px">Удалить товар</a>
     <a href="{% url 'product_update' pk=product.id %}" class="btn btn-primary" style="margin-left: 10px">Изменить товар</a>
-    <form action="{% url 'order_create' pk=product.id %}" method="POST" style="margin: 10px">
-        {% csrf_token %}
-        <button class="btn btn-primary">Добавить в заказ</button>
-    </form>
+    {% if user.is_authenticated %}
+        <form action="{% url 'order_create' pk=product.id %}" method="POST" style="margin: 10px">
+            {% csrf_token %}
+            <button class="btn btn-primary">Добавить в заказ</button>
+        </form>
+    {% endif %}
 </div>
 
 {% endblock %}

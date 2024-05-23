@@ -15,9 +15,9 @@
 </header>
 <div class="row">
     <ul class="col nav justify-content-end border">
-        <li class="nav-item"><a class="nav-link btn-primary mr-3" href="{% url 'index' %}">Главная</a></li>
-        <li class="nav-item"><a class="nav-link btn-primary mr-3" href="{% url 'products_list' %}">Все товары</a></li>
-        <li class="nav-item"><a class="nav-link btn-primary mr-3" href="{% url 'product_create' %}">Создать товар</a></li>
+        <li class="nav-item"><a class="nav-link btn-primary mr-3" href="{% url 'index' %}" style="height: 40px;">Главная</a></li>
+        <li class="nav-item"><a class="nav-link btn-primary mr-3" href="{% url 'products_list' %}" style="height: 40px;">Все товары</a></li>
+        <li class="nav-item"><a class="nav-link btn-primary mr-3" href="{% url 'product_create' %}" style="height: 40px;">Создать товар</a></li>
 
         {% if user.is_authenticated %}
         <li class="nav-item">
@@ -26,10 +26,10 @@
                 <button class="nav-link btn-primary mr-3" type="submit" style="height: 40px;">Выход</button>
             </form>
         </li>
-        <li class="nav-item"><a class="nav-link btn-primary mr-3" href="{% url 'profile' %}">Профиль</a></li>
+        <li class="nav-item"><a class="nav-link btn-primary mr-3" href="{% url 'profile' %}" style="height: 40px;">Профиль</a></li>
         {% else %}
-        <li class="nav-item"><a class="nav-link btn-primary mr-3" href="{% url 'register' %}">Регистрация</a></li>
-        <li class="nav-item"><a class="nav-link btn-primary mr-3" href="{% url 'login' %}">Вход</a></li>
+        <li class="nav-item"><a class="nav-link btn-primary mr-3" href="{% url 'register' %}" style="height: 40px;">Регистрация</a></li>
+        <li class="nav-item"><a class="nav-link btn-primary mr-3" href="{% url 'login' %}" style="height: 40px;">Вход</a></li>
         {% endif %}
 
     </ul>
