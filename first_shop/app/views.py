@@ -21,7 +21,7 @@ class ProductListView(ListView):
     def get_queryset(self):
         products = Product.objects.all()
         if self.request.GET.get('filter_type') is None or self.request.GET.get('filter_type')[0] == 'N':
-            return products
+            return products.order_by('id')
         elif self.request.GET.get('filter_type')[0] == 'B':
             return products.order_by('price')
         elif self.request.GET.get('filter_type')[0] == 'Y':
