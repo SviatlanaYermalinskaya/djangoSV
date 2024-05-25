@@ -4,12 +4,12 @@
 {% block content %}
     {% if products_list %}
         <form method="GET" style="margin: 15px 15px 15px 0px">
-            <select class="form-select" name="filter_type">
+            <select class="form-select" name="order_type">
                 <option value="N">Без сортировки</option>
-                <option value="B" {% if  request.GET.filter_type == 'B' %} selected {% endif %}>По возрастанию цены</option>
-                <option value="Y" {% if  request.GET.filter_type == 'Y' %} selected {% endif %}>По убыванию цены</option>
-                <option value="C" {% if  request.GET.filter_type == 'C' %} selected {% endif %}>Старое</option>
-                <option value="H" {% if  request.GET.filter_type == 'H' %} selected {% endif %}>Новое</option>
+                <option value="B" {% if  request.GET.order_type == 'B' %} selected {% endif %}>По возрастанию цены</option>
+                <option value="Y" {% if  request.GET.order_type == 'Y' %} selected {% endif %}>По убыванию цены</option>
+                <option value="C" {% if  request.GET.order_type == 'C' %} selected {% endif %}>Старое</option>
+                <option value="H" {% if  request.GET.order_type == 'H' %} selected {% endif %}>Новое</option>
             </select>
             <button type="submit" style="margin-left: 5px" class="btn btn-primary">Отсортировать</button>
         </form>
@@ -26,7 +26,7 @@
         {% if page_obj.has_other_pages %}
             <div class="pagination">
                 <span class="page-links">
-                    {% if 'filter_type' in request.get_full_path %}
+                    {% if 'order_type' in request.get_full_path %}
                         {% if page_obj.has_previous %}
                             <a href="{{ request.get_full_path }}&page=1">&laquo; Первая</a>
                             <a href="{{ request.get_full_path }}&page={{ page_obj.previous_page_number }}">Предыдущая</a>

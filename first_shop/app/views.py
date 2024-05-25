@@ -16,19 +16,19 @@ class ProductListView(ListView):
     template_name = 'products_list.html'
     context_object_name = 'products_list'
     #ordering = '-created' # filtered by created datetime DESC
-    paginate_by = 7  # Need to save filter_type state for right pagination
+    paginate_by = 5  # Need to save order_type  state for right pagination
 
     def get_queryset(self):
         products = Product.objects.all()
-        if self.request.GET.get('filter_type') is None or self.request.GET.get('filter_type')[0] == 'N':
+        if self.request.GET.get('order_type') is None or self.request.GET.get('order_type')[0] == 'N':
             return products.order_by('-id')
-        elif self.request.GET.get('filter_type')[0] == 'B':
+        elif self.request.GET.get('order_type')[0] == 'B':
             return products.order_by('price')
-        elif self.request.GET.get('filter_type')[0] == 'Y':
+        elif self.request.GET.get('order_type')[0] == 'Y':
             return products.order_by('-price')
-        elif self.request.GET.get('filter_type')[0] == 'C':
+        elif self.request.GET.get('order_type')[0] == 'C':
             return products.order_by('created')
-        elif self.request.GET.get('filter_type')[0] == 'H':
+        elif self.request.GET.get('order_type')[0] == 'H':
             return products.order_by('-created')
 
     def setup(self, request, *args, **kwargs) -> None:
